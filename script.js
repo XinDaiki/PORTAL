@@ -2331,7 +2331,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="balance-item-label">Total Fees</div>
               </div>
               <div class="balance-item">
-                <div class="balance-item-value">₱15,000.00</div>
+                <div class="balance-item-value">₱18,500.00</div>
                 <div class="balance-item-label">Amount Paid</div>
               </div>
             </div>
@@ -2349,7 +2349,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <i class="fas fa-info-circle"></i>
         <div>
           <p><strong>Welcome to your Student Dashboard!</strong></p>
-          <p>Here you can access all your important academic information, track deadlines, view grades, and manage your student account. Use the menu on the left to navigate to different sections. Today is <span class="current-date">April 2, 2025</span>.</p>
+          <p>Here you can access all your important academic information, track deadlines, view grades, and manage your student account. Use the menu on the left to navigate to different sections. Today is <span class="current-date">May 5, 2025</span>.</p>
         </div>
       </div>
     `;
