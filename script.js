@@ -978,7 +978,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <p>Use this form to request grade completion for subjects with incomplete marks.</p>
           </div>
         </div>
-
+  
         <div class="alert-box">
           <i class="fas fa-exclamation-circle"></i>
           <div>
@@ -986,10 +986,10 @@ document.addEventListener('DOMContentLoaded', function() {
             <p>Grade completion requests must be submitted within 30 days of grade posting. Processing may take up to 5 working days.</p>
           </div>
         </div>
-
+  
         <div class="grade-completion-form" style="margin-top: 30px;">
           <h3 class="form-title">Grade Completion Request Form</h3>
-
+  
           <div class="form-section">
             <div class="form-row">
               <div class="form-group">
@@ -1010,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </select>
               </div>
             </div>
-
+  
             <div class="form-row">
               <div class="form-group">
                 <label for="instructorName">Instructor Name</label>
@@ -1021,7 +1021,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <input type="date" id="submissionDate" value="${new Date().toISOString().split('T')[0]}">
               </div>
             </div>
-
+  
             <div class="form-row">
               <div class="form-group">
                 <label for="reasonSelect">Reason for Request</label>
@@ -1034,41 +1034,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 </select>
               </div>
             </div>
-
+  
             <div class="form-row">
               <div class="form-group full-width">
                 <label for="requestDetails">Details of Request</label>
                 <textarea id="requestDetails" rows="4" placeholder="Please provide detailed information about your grade completion request"></textarea>
               </div>
             </div>
-
+  
             <div class="form-row">
               <div class="form-group full-width">
-                <label for="supportingDocs">Supporting Documents (if any)</label>
-                <div class="file-upload-container">
-                  <button class="file-upload-btn">
+                <label for="supportingDocs">Supporting Documents</label>
+                <input type="file" id="supportingDocs" multiple accept=".pdf,.jpg,.png" style="display:none;" />
+                <div class="file-upload-container" onclick="document.getElementById('supportingDocs').click()">
+                  <button class="file-upload-btn" type="button">
                     <i class="fas fa-cloud-upload-alt"></i> Upload Files
                   </button>
-                  <span class="file-upload-text">No files selected</span>
+                  <span class="file-upload-text" id="fileUploadText">No files selected</span>
                 </div>
                 <div class="file-upload-note">Accepted formats: PDF, JPG, PNG (Max size: 5MB per file)</div>
               </div>
             </div>
           </div>
-
+  
           <div class="buttons-container">
-            <button class="widget-config-btn" style="background-color: #e0e0e0; color: #546e7a;">
+            <button class="widget-config-btn" style="background-color: #e0e0e0; color: #546e7a;" onclick="saveDraft()">
               <i class="fas fa-save"></i> Save Draft
             </button>
-            <button class="widget-config-btn">
+            <button class="widget-config-btn" onclick="submitGradeCompletionRequest()">
               <i class="fas fa-paper-plane"></i> Submit Request
             </button>
           </div>
         </div>
-
+  
         <div class="previous-requests" style="margin-top: 40px;">
           <h3 class="content-subtitle">Previous Requests</h3>
-
+  
           <table class="modal-table">
             <thead>
               <tr>
@@ -1103,6 +1104,57 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     `;
   }
+
+  // Show selected file names
+document.addEventListener('change', function (e) {
+  if (e.target && e.target.id === 'supportingDocs') {
+    const files = Array.from(e.target.files);
+    const fileNames = files.length > 0 ? files.map(f => f.name).join(', ') : 'No files selected';
+    document.getElementById('fileUploadText').textContent = fileNames;
+  }
+});
+
+// Save Draft
+function saveDraft() {
+  const draftData = collectFormData();
+  console.log('Draft saved:', draftData);
+  alert("Draft saved successfully (in console for now).");
+}
+
+// Submit Request
+function submitGradeCompletionRequest() {
+  const data = collectFormData();
+
+  // Basic validation
+  if (!data.subject || !data.semester || !data.instructor || !data.reason) {
+    alert("Please complete all required fields.");
+    return;
+  }
+
+  // Confirm submission
+  if (!confirm("Do you want to submit this grade completion request?")) return;
+
+  // Simulated submission
+  console.log("Submitted Data:", data);
+  alert("Grade completion request submitted successfully!");
+}
+
+// Helper to collect all form values
+function collectFormData() {
+  const fileInput = document.getElementById('supportingDocs');
+  const files = fileInput ? Array.from(fileInput.files).map(f => f.name) : [];
+
+  return {
+    subject: document.getElementById('subjectSelect').value,
+    semester: document.getElementById('semesterSelect').value,
+    instructor: document.getElementById('instructorName').value,
+    date: document.getElementById('submissionDate').value,
+    reason: document.getElementById('reasonSelect').value,
+    details: document.getElementById('requestDetails').value,
+    attachments: files
+  };
+}
+
 
   // Generate Change Password
   function generateChangePassword() {
@@ -1534,6 +1586,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <textarea id="comments" rows="4" style="width: 100%; padding: 10px; margin-top: 8px;"></textarea>
         </div>
       `;
+
     
     } else if (contentId === 'evaluation-report') { 
       return `
@@ -2144,6 +2197,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
   }
 
+  
   // Function to get icon class for a content ID
   function getIconForContentId(contentId) {
     const iconMap = {
