@@ -1012,15 +1012,18 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
   
             <div class="form-row">
-              <div class="form-group">
-                <label for="instructorName">Instructor Name</label>
-                <input type="text" id="instructorName" placeholder="Enter instructor name">
-              </div>
-              <div class="form-group">
-                <label for="submissionDate">Request Submission Date</label>
-                <input type="date" id="submissionDate" value="${new Date().toISOString().split('T')[0]}">
-              </div>
-            </div>
+  <div class="form-group">
+    <label for="instructorName">Instructor Name</label>
+    <select id="instructorName">
+      <option value="">-- Select instructor --</option>
+      <option value="Prof. Ariana-Butera (Mathematics 101)">Prof. Ariana-Butera (Mathematics 101)</option>
+      <option value="Dr. Abel-Tesfaye (Physics 201)">Dr. Abel-Tesfaye (Physics 201)</option>
+      <option value="Prof. Aubrey-Graham (English Literature)">Prof. Aubrey-Graham (English Literature)</option>
+      <option value="Dr. Elizabeth-Grant (Computer Science)">Dr. Elizabeth-Grant (Computer Science)</option>
+      <option value="Coach Ashton-Simmonds (Physical Education)">Coach Ashton-Simmonds (Physical Education)</option>
+    </select>
+  </div>
+</div>
   
             <div class="form-row">
               <div class="form-group">
